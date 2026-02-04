@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, Zap, Cpu, Layers, Globe, Send, Terminal, Database, ChevronDown, ShieldCheck, X } from 'lucide-react'
+import { ArrowRight, Zap, Cpu, Layers, Globe, Send, Terminal, Database, ChevronDown, X } from 'lucide-react'
 import { Telemetry } from '../components/Layout'
 import { useState, useEffect } from 'react'
 

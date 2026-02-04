@@ -14,6 +14,6 @@ export default defineConfig({
       },
     },
     cssCodeSplit: true,
-    minify: 'terser',
+    // minify: 'terser', // Removed to avoid missing dependency
   },
 })
