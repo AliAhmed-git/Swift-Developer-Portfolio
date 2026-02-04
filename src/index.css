@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+@theme {
+  /* Signal Orange Identity */
+  --color-primary: #FF4D00;
+  --color-primary-dim: #CC3D00;
+  --color-primary-glow: rgba(255, 77, 0, 0.5);
+
+  /* Cyber-Brutalist Palette */
+  --color-ink: #050505;
+  --color-hardware: #1A1A1A;
+  --color-surface: #0A0A0A;
+  --color-accent: #FF8E3C;
+  --color-muted: #8b949e;
+
+  /* Reset to Sharp Edges */
+  --radius-none: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-full: 0px;
+
+  /* Typography */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Transitions */
+  --transition-cyber: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes noise {
+
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+
+  10% {
+    background-position: -5% -10%;
+  }
+
+  20% {
+    background-position: -15% 5%;
+  }
+
+  30% {
+    background-position: 7% -25%;
+  }
+
+  40% {
+    background-position: 20% 25%;
+  }
+
+  50% {
+    background-position: -25% 10%;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+    text-shadow: 2px 0 #FF4D00, -2px 0 #00ffff;
+  }
+
+  40% {
+    transform: translate(2px, -2px);
+    text-shadow: -2px 0 #FF4D00, 2px 0 #00ffff;
+  }
+
+  60% {
+    transform: translate(-2px, -2px);
+    text-shadow: 2px 0 #FF4D00, -2px 0 #00ffff;
+  }
+
+  80% {
+    transform: translate(2px, 2px);
+    text-shadow: -2px 0 #FF4D00, 2px 0 #00ffff;
+  }
+
+  100% {
+    transform: translate(0);
+    text-shadow: none;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-ink text-white font-body antialiased selection:bg-primary selection:text-ink;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 500px;
+  }
+
+  /* CRT Effects Layer */
+  .crt-overlay {
+    @apply fixed inset-0 pointer-events-none z-[9999];
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 3px, 3px 100%;
+    will-change: opacity;
+  }
+
+  .grain-overlay {
+    @apply fixed inset-0 pointer-events-none z-[9998] opacity-[0.02];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
+    animation: noise 2s steps(4) infinite;
+    will-change: opacity;
+  }
+
+  .scanline {
+    @apply fixed inset-0 pointer-events-none z-[10000] opacity-[0.01];
+    background: linear-gradient(to bottom, transparent, #FF4D00 50%, transparent);
+    background-size: 100% 100px;
+    animation: scanline 15s linear infinite;
+    will-change: transform;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-black tracking-tighter uppercase;
+  }
+}
+
+@layer components {
+  .cyber-border {
+    @apply border border-white/10 hover:border-primary/50 transition-all duration-300;
+  }
+
+  .cyber-button {
+    @apply relative px-8 py-4 font-heading font-bold uppercase tracking-widest bg-primary text-ink hover:bg-white transition-all duration-300 active:scale-95;
+  }
+
+  .cyber-button-outline {
+    @apply relative px-8 py-4 font-heading font-bold uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-ink transition-all duration-300 active:scale-95;
+  }
+
+  .glitch-hover:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  }
+
+  .terminal-input {
+    @apply bg-transparent border-none outline-none font-mono text-primary w-full caret-primary;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-ink;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-hardware hover:bg-primary transition-colors;
+}
