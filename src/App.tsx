@@ -3,6 +3,7 @@ import { PageLayout } from './components/Layout'
 import Home from './pages/Home'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 // Scroll to anchor handler
 const ScrollToAnchor = () => {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </PageLayout>
+      <SpeedInsights />
     </Router>
   )
 }
